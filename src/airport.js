@@ -7,4 +7,5 @@ function Airport(capacity) {
 
 Airport.prototype.land = function(plane) {
   plane.land();
+  return plane.isFlying ? "Plane did not land." : "Plane has landed.";
 }

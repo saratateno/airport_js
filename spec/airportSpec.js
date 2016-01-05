@@ -24,5 +24,11 @@ describe("Airport", function() {
       airport.land(plane);
       expect(plane.land).toHaveBeenCalled();
     });
+
+    it("confirms that the plane has landed", function() {
+      plane = jasmine.createSpyObj('plane', ['land', 'isFlying']);
+      plane.isFlying = false;
+      expect(airport.land(plane)).toEqual("Plane has landed.")
+    });
   });
 });

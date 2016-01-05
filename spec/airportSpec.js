@@ -30,6 +30,15 @@ describe("Airport", function() {
       plane.isFlying = false;
       expect(airport.land(plane)).toEqual("Plane has landed.")
     });
+
+    it("will not instruct plane to land in stormy weather", function() {
+      plane.land = jasmine.createSpy("land()");
+      var weather = {
+        isStormy: true
+      }
+      airport.land(plane);
+      expect(plane.land).not.toHaveBeenCalled();
+    });
   });
 
   describe("#takeoff", function() {

@@ -31,4 +31,19 @@ describe("Airport", function() {
       expect(airport.land(plane)).toEqual("Plane has landed.")
     });
   });
+
+  describe("#takeoff", function() {
+    it("can instruct a plane to take off", function() {
+      plane.takeoff = jasmine.createSpy("takeoff()");
+      airport.takeoff(plane);
+      expect(plane.takeoff).toHaveBeenCalled();
+    });
+
+    it("confirms that the plane is no longer in the airport", function() {
+      plane = jasmine.createSpyObj('plane', ['takeoff', 'isFlying']);
+      plane.isFlying = true;
+      expect(airport.takeoff(plane)).toEqual("Plane has left the airport.");
+    })
+  });
+
 });

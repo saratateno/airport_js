@@ -4,3 +4,7 @@ function Airport(capacity) {
   capacity = typeof capacity !== 'undefined' ? capacity : DEFAULT_CAPACITY;
   this.capacity = capacity;
 }
+
+Airport.prototype.land = function(plane) {
+  plane.land();
+}

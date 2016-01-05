@@ -5,11 +5,19 @@ function Airport(capacity) {
 }
 
 Airport.prototype.land = function(plane) {
-  plane.land();
+  if (!this.isStormy()) {
+    plane.land();
+  }
   return plane.isFlying ? "Plane did not land." : "Plane has landed.";
 }
 
 Airport.prototype.takeoff = function(plane) {
-  plane.takeoff();
+  if (!this.isStormy()) {
+    plane.takeoff();
+  }
   return plane.isFlying? "Plane has left the airport." : "Plane did not take off";
+}
+
+Airport.prototype.isStormy = function() {
+  return Math.random() >= 0.9;
 }

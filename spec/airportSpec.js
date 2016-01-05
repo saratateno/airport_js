@@ -20,6 +20,7 @@ describe("Airport", function() {
 
   describe("#land", function() {
     it("can instruct a plane to land", function() {
+      spyOn(airport, "isStormy").and.returnValue(false);
       plane.land = jasmine.createSpy("land()");
       airport.land(plane);
       expect(plane.land).toHaveBeenCalled();
@@ -32,10 +33,8 @@ describe("Airport", function() {
     });
 
     it("will not instruct plane to land in stormy weather", function() {
+      spyOn(airport, "isStormy").and.returnValue(true);
       plane.land = jasmine.createSpy("land()");
-      var weather = {
-        isStormy: true
-      }
       airport.land(plane);
       expect(plane.land).not.toHaveBeenCalled();
     });
@@ -53,6 +52,20 @@ describe("Airport", function() {
       plane.isFlying = true;
       expect(airport.takeoff(plane)).toEqual("Plane has left the airport.");
     })
+
+    it("will not instruct plane to takeoff in stormy weather", function() {
+      spyOn(airport, "isStormy").and.returnValue(true);
+      plane.takeoff = jasmine.createSpy("takeoff()");
+      airport.takeoff(plane);
+      expect(plane.takeoff).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("#isStormy", function() {
+    it("randomly returns stormy weather", function() {
+      spyOn(Math, "random").and.returnValue(0.9);
+      expect(airport.isStormy()).toEqual(true);
+    });
   });
 
 });
